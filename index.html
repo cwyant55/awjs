@@ -16,31 +16,35 @@
 	<div id="main">
 	<!-- stuff goes here -->
 	
-	<div class="container">
+	<div class="container" ng-controller="searchController">
 		<div class="jumbotron">
 		<h1>AW.js</h1> 
 		<p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p> 
   </div>
-  
-		<div class="container" ng-controller="searchController">
 	
-		<button ng-click="getResults()">Get All Data</button>	
-
-	<p>Results:</p>
-	<ul>
-		<!-- Render a li element for every entry in the items array. Notice
-			 the custom search filter "searchFor". It takes the value of the
-			 searchString model as an argument.
-		 -->
-		<li ng-repeat="i in items">
-			<a href="{{i.url}}"><img ng-src="{{i.image}}" /></a>
-			<p>{{i.title}}</p>
-		</li>
-	</ul>
-		 <p ng-bind="ResponseDetails"></p>
-    {{ResponseDetails}}
+	<form class="well form-search">
+		<label>Search:</label>
+		<input type="text" ng-model="keywords" class="input-medium search-query" placeholder="Keywords...">
+		<button type="submit" class="btn" ng-click="getResults()">Search</button>
+		<p class="help-block">Try for example: "php" or "angularjs" or "asdfg"</p>		
+    </form>
 		
-		</div> <!-- controller ->
+	 <table class="table table-striped">
+                <tr>
+                    <th width="5%">#</th>
+                    <th width="20%">Title</th>
+                    <th width="30%">Author</th>
+                    <th width="20%">Barcode</th>
+                    <th width="14%">Format</th>
+                </tr>
+                <tr ng-repeat="result in results">
+                    <td>{{$index + 1}}</td>
+                    <td>{{result.title}}</td>
+                    <td>{{result.author}}</td>
+                    <td>{{result.barcode}}</td>
+                    <td>{{result.format}}</td>
+                </tr>
+            </table>
 	
 	</div> <!-- main -->
 </body>

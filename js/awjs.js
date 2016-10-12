@@ -120,18 +120,15 @@ awApp.controller("userController", function($scope,$http){
     };
 });
 
-// Apache Solr stuff
+// Apache Solr
 awApp.controller("searchController", function($scope,$http){
-	$scope.GetAllData = function () {
-            $http.get('http://awjs.local/solr/cwils/select?q=*%3A*&wt=json&indent=true')
-            .success(function (data, status, headers, config) {
-                $scope.Details = data;
-            })
-            .error(function (data, status, header, config) {
-                $scope.ResponseDetails = "Data: " + data +
-                    "<br />status: " + status +
-                    "<br />headers: " + jsonFilter(header) +
-                    "<br />config: " + jsonFilter(config);
-            });
-        };
+    $scope.results = [];
+    // function to get search results
+    $scope.getResults = function(){
+		var query = 'http://awjs.local/solr/cwils/select?q=' + $scope.keywords + '&wt=json';
+        $http.get(query).success(function(response){
+                $scope.results = response.response.docs;
+				console.log($scope.results);
+        });
+    };	
 });
