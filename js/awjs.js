@@ -1,4 +1,4 @@
-// define application
+// define main CRUD application
 var awApp = angular.module("awApp", []);
 awApp.controller("userController", function($scope,$http){
     $scope.users = [];
@@ -118,4 +118,20 @@ awApp.controller("userController", function($scope,$http){
             $('.alert-danger > p').html('');
         });
     };
+});
+
+// Apache Solr stuff
+awApp.controller("searchController", function($scope,$http){
+	$scope.GetAllData = function () {
+            $http.get('http://awjs.local/solr/cwils/select?q=*%3A*&wt=json&indent=true')
+            .success(function (data, status, headers, config) {
+                $scope.Details = data;
+            })
+            .error(function (data, status, header, config) {
+                $scope.ResponseDetails = "Data: " + data +
+                    "<br />status: " + status +
+                    "<br />headers: " + jsonFilter(header) +
+                    "<br />config: " + jsonFilter(config);
+            });
+        };
 });
