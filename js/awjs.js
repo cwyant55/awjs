@@ -4,11 +4,11 @@ awApp.controller("userController", function($scope,$http){
     $scope.users = [];
     $scope.tempUserData = {};
     // function to get records from the database
-    $scope.getRecords = function(){
+    $scope.getRecords = function(tableName){
         $http.get('./php/action.php', {
             params:{
                 'type':'view',
-				'table':'users'
+				'table':tableName
             }
         }).success(function(response){
             if(response.status == 'OK'){
@@ -116,25 +116,6 @@ awApp.controller("userController", function($scope,$http){
         $('.alert-danger').show();
         $('.alert-danger').delay(5000).slideUp(function(){
             $('.alert-danger > p').html('');
-        });
-    };
-});
-
-awApp.controller("repoController", function($scope,$http){
-    $scope.repos = [];
-    $scope.tempRepoData = {};
-    // function to get records from the database
-    $scope.getRecords = function(){
-        $http.get('./php/action.php', {
-            params:{
-                'type':'view',
-				'table':'repositories'
-            }
-        }).success(function(response){
-            if(response.status == 'OK'){
-                $scope.repos = response.records;
-				console.log($scope.repos);
-            }
         });
     };
 });

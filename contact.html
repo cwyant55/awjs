@@ -16,7 +16,7 @@
 	<div id="main">
 	<!-- stuff goes here -->
 	
-	<div class="container" ng-controller="repoController" ng-init="getRecords()">
+	<div class="container" ng-controller="userController" ng-init="getRecords('repositories')">
     <div class="row">
     	<h2>Contact</h2>
         <div class="panel panel-default users-content">
@@ -27,9 +27,9 @@
                     <th width="25%">Name</th>
                     <th width="75%">Collection Info</th>
                 </tr>
-                <tr ng-repeat="repo in repos">
-                    <td>{{repo.repository}}</td>
-                    <td>{{repo.collinfo}}</td>
+                <tr ng-repeat="user in users">
+                    <td><a href="{{user.url}}">{{user.name}}</a></td>
+                    <td>{{user.collectioninfo}}</td>
                 </tr>
             </table>
         </div>
