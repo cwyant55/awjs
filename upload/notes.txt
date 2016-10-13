@@ -1,0 +1,16 @@
+*** PHP/MySQL experiments on Larry2 ***
+
+Install LAMP stack:
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu
+
+MySQL root pw is:
+-TE]C6}u_#thE4/,
+
+Putty SSH MySQL port forwarding:
+http://realprogrammers.com/how_to/set_up_an_ssh_tunnel_with_putty.html
+
+http://www.elated.com/articles/cms-in-an-afternoon-php-mysql/
+^^^with Bootstrap styling?
+
+http://www.elated.com/articles/mod-rewrite-tutorial-for-absolute-beginners/#friendly-urls
+

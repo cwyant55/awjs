@@ -130,5 +130,30 @@ awApp.controller("searchController", function($scope,$http){
                 $scope.results = response.response.docs;
 				console.log($scope.results);
         });
+    };
+	
+	// function to submit document to Solr
+	 $scope.submitDoc = function(){
+        $http.get('./php/solr.php').success(function(response){
+                $scope.results = response;
+				console.log($scope.results);
+        });
     };	
+	
+	// test
+	 $scope.test = function(){
+        $http.get('./php/test.php').success(function(response){
+                $scope.results = response;
+				console.log($scope.results);
+        });
+    };
+	
+		// curl test
+	 $scope.curl = function(){
+        $http.get('http://awjs.local/solr/cwils/update?commit=true -H "Content-Type: text/csv" --data-binary" @http://awjs.local/upload/SampleLog.csv').success(function(response){
+                $scope.results = response;
+				console.log($scope.results);
+        });
+    };
+	
 });
