@@ -133,7 +133,7 @@ awApp.controller("searchController", function($scope,$http){
     };
 		
 	// Submit and index document
-	 $scope.test = function(){
+	 $scope.upload = function(){
         $http.get('./php/upload.php').success(function(response){
                 $scope.results = response;
 				console.log($scope.results);
