@@ -16,7 +16,6 @@ if (!empty($_FILES)) {
      
 }
 
-
 // index and commit file to Solr
 $ch = curl_init("http://localhost:8983/solr/cwils/update?commit=true");
 
