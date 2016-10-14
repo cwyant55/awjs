@@ -164,10 +164,11 @@ awApp.controller("searchController", function($scope,$http){
             $('.alert-danger > p').html('');
         });
     };
-	
-	$("#button").click(function() { 
-    // assumes element with id='button'
-    $("#submit3").toggle();
-});
-	
-});
+
+});	// Apache Solr controller
+
+// form controller
+awApp.controller("formController", function($scope,$http){
+ 
+
+}); // form controller
