@@ -1,7 +1,13 @@
-<div ng-controller="formController">
-	<h2>Submit a Document</h2>
+<div ng-controller="userController">
+	<h2>Document Viewer</h2>
 
-		<input id="file" type="file" name="file" /><br/>
-		<button class="btn btn-primary" id="add" ng-click="upload()">Submit</button>
-        <div class="alert alert-success none"><p></p></div>
+	<div ng-init="getRecords('docs')">
+	  <label>Select an ARK ID:</label>
+	<select ng-model="temp.ark" ng-options="user.arkid for user in users"/>
+		<br/><br/>
+		<button class="btn btn-primary" ng-click="viewDoc()">Submit ARK Request</button>
+		
+		<div id="docview" class="none"><pre><!--retrieved document goes here --></pre></div>
+	
+	</div>
 </div>

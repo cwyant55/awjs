@@ -139,6 +139,17 @@ awApp.controller("userController", function($scope,$http){
             }
         });
     };
+	
+	
+	// function to view document
+    $scope.viewDoc = function(){
+		console.log($scope.temp);
+        $http.get("/upload/oru_2016_q3_report.csv").success(function(response){
+			$('#docview > pre').html(response);
+			$('#docview').show();
+        });
+    };
+	
 }); // user controller
 
 // Apache Solr
