@@ -38,6 +38,31 @@ if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
             }
             echo json_encode($data);
             break;
+		case "ark":
+            if(!empty($_POST['data'])){
+				// generate random ARK ID
+				$rando = rand(4000, 5000);
+				$arkid = '80444/xv' . $rando;
+						
+                $arkData = array(
+                    'inst' => $_POST['data']['inst'],
+					'arkid' => $arkid
+                );
+                $insert = $db->insert($tblName,$arkData);
+                if($insert){
+                    $data['data'] = $insert;
+                    $data['status'] = 'OK';
+                    $data['msg'] = 'Ark ID generated: ' .$arkid;
+                }else{
+                    $data['status'] = 'ERR';
+                    $data['msg'] = 'Some problem occurred, please try again.';
+                }
+            }else{
+                $data['status'] = 'ERR';
+                $data['msg'] = 'Some problem occurred, please try again.';
+            }
+            echo json_encode($data);
+            break;
         case "edit":
             if(!empty($_POST['data'])){
                 $userData = array(

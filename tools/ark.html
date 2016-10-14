@@ -1,0 +1,15 @@
+<div ng-controller="userController">
+	<h2>Ark Request</h2>
+		
+	<div ng-init="getRecords('repositories')">
+	  <label>Select your institution:</label>
+	<select ng-model="temp.inst">
+	  <option ng-repeat="user in users">{{user.instcode}}</option>	 
+	</select>
+		<br/><br/>
+		<button class="btn btn-primary" ng-click="arkRequest()">Submit ARK Request</button>
+		<div class="alert alert-success none"><p></p></div>
+	
+	</div>
+	
+</div>

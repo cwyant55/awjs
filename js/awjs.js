@@ -5,7 +5,7 @@ awApp.controller("userController", function($scope,$http){
     $scope.tempUserData = {};
     // function to get records from the database
     $scope.getRecords = function(tableName){
-        $http.get('./php/action.php', {
+        $http.get('/php/action.php', {
             params:{
                 'type':'view',
 				'table':tableName
@@ -30,7 +30,7 @@ awApp.controller("userController", function($scope,$http){
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
             }
         };
-        $http.post("./php/action.php", data, config).success(function(response){
+        $http.post("/php/action.php", data, config).success(function(response){
             if(response.status == 'OK'){
                 if(type == 'edit'){
                     $scope.users[$scope.index].id = $scope.tempUserData.id;
@@ -118,7 +118,28 @@ awApp.controller("userController", function($scope,$http){
             $('.alert-danger > p').html('');
         });
     };
-});
+	
+	// function to generate ARK request
+    $scope.arkRequest = function(){
+			var data = $.param({
+            'data': $scope.temp,
+            'type':'ark',
+			'table':'docs'
+        });
+        var config = {
+            headers : {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        };
+        $http.post("/php/action.php", data, config).success(function(response){
+            if(response.status == 'OK'){
+                $scope.messageSuccess(response.msg);
+            }else{
+                $scope.messageError(response.msg);
+            }
+        });
+    };
+}); // user controller
 
 // Apache Solr
 awApp.controller("searchController", function($scope,$http){
@@ -131,44 +152,31 @@ awApp.controller("searchController", function($scope,$http){
 				console.log($scope.results);
         });
     };
-
-// Submit and index document
-	 $scope.upload = function(){
-        $http.get('/php/upload2.php').success(function(response){
-                $scope.results = response;
-				console.log($scope.results);
-               if(response == '0'){
-					$scope.messageSuccess('Submit successful!');
-                }else{
-					var error = 'Submit failed: ' + response;
-                    $scope.messageError(error);
-                }
-
-        });
-    };
-	
-	    // function to display success message
-    $scope.messageSuccess = function(msg){
-        $('.alert-success > p').html(msg);
-        $('.alert-success').show();
-        $('.alert-success').delay(5000).slideUp(function(){
-            $('.alert-success > p').html('');
-        });
-    };
-    
-    // function to display error message
-    $scope.messageError = function(msg){
-        $('.alert-danger > p').html(msg);
-        $('.alert-danger').show();
-        $('.alert-danger').delay(5000).slideUp(function(){
-            $('.alert-danger > p').html('');
-        });
-    };
-
 });	// Apache Solr controller
 
 // form controller
 awApp.controller("formController", function($scope,$http){
- 
-
+	$scope.upload = function () {
+		var file_data = $('#file').prop('files')[0];   
+		var form_data = new FormData();                  
+		form_data.append('file', file_data);                        
+		$.ajax({
+                url: '/php/upload.php', // point to server-side PHP script 
+                dataType: 'text',  // what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,                         
+                type: 'post',
+                success: function(response) {
+				console.log(response);
+				var msg = 'File sucessfully uploaded.';
+				$('.alert-success > p').html(msg);
+				$('.alert-success').show();
+				$('.alert-success').delay(5000).slideUp(function(){
+				$('.alert-success > p').html('');
+					});
+				}		
+		});
+	};
 }); // form controller

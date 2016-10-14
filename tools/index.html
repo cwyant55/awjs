@@ -25,23 +25,25 @@
 <div class="row">
 	<div class="col-md-3">
 <div class="btn-group-vertical" role="group" aria-label="...">
-<div class="btn btn-default"><b>Submit a Document</b></div>
-<div class="btn btn-default"><b>FAQ</b></div>
+<div class="btn btn-default" ng-click="link = 'submit'"><b>Submit a Document</b></div>
+<div class="btn btn-default" ng-click="link = 'viewer'"><b>Document Viewer</b></div>
+<div class="btn btn-default" ng-click="link = 'ark'"><b>ARK Request</b></div>
 </div>
 </div>
 
 <div class="col-md-5">
 <div>
-        <div class="container">
-            <div id="wrapper">
-				<div id="submit4">
-				<div ng-include="'/tools/submit.html'"></div>							
-                </div>
-				</div>
-                <div id="faq">
-
-                </div>
-            </div>
+	<div class="container" ng-switch on="link">
+    <div ng-switch-when="submit" >
+        <ng-include src="'/tools/submit.html'"></ng-include>
+    </div>
+    <div ng-switch-when="viewer">
+		<ng-include src="'/tools/viewer.html'"></ng-include>
+    </div>
+	<div ng-switch-when="ark">
+		<ng-include src="'/tools/ark.html'"></ng-include>
+    </div>
+</div>
         </div>
     </div>
 </div>
