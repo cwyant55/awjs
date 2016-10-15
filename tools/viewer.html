@@ -2,12 +2,17 @@
 	<h2>Document Viewer</h2>
 
 	<div ng-init="getRecords('docs')">
-	  <label>Select an ARK ID:</label>
-	<select ng-model="temp.ark" ng-options="user.arkid for user in users"/>
-		<br/><br/>
-		<button class="btn btn-primary" ng-click="viewDoc()">Submit ARK Request</button>
-		
-		<div id="docview" class="none"><pre><!--retrieved document goes here --></pre></div>
 	
+	<form>
+	<div class="form-group">
+    <label for="ark">Select an ARK ID:</label>
+	<select id="ark" ng-model="temp.ark" ng-options="user.arkid for user in users"/>
 	</div>
+	
+	<button class="btn btn-primary" ng-click="viewDoc()">View Document</button>
+	</form>	
+	
+	
+	<div id="docview" class="none"><pre><!--retrieved document goes here --></pre></div>
+	
 </div>

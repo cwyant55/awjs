@@ -144,7 +144,8 @@ awApp.controller("userController", function($scope,$http){
 	// function to view document
     $scope.viewDoc = function(){
 		console.log($scope.temp);
-        $http.get("/upload/oru_2016_q3_report.csv").success(function(response){
+		var docpath = '/upload/' + $scope.temp.ark.docname;
+        $http.get(docpath).success(function(response){
 			$('#docview > pre').html(response);
 			$('#docview').show();
         });
@@ -168,9 +169,11 @@ awApp.controller("searchController", function($scope,$http){
 // form controller
 awApp.controller("formController", function($scope,$http){
 	$scope.upload = function () {
-		var file_data = $('#file').prop('files')[0];   
+		var file_data = $('#file').prop('files')[0];
+		var arkid = $('#arkid').val();
 		var form_data = new FormData();                  
-		form_data.append('file', file_data);                        
+		form_data.append('file', file_data);
+		form_data.append('arkid', arkid);
 		$.ajax({
                 url: '/php/upload.php', // point to server-side PHP script 
                 dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -180,8 +183,8 @@ awApp.controller("formController", function($scope,$http){
                 data: form_data,                         
                 type: 'post',
                 success: function(response) {
-				console.log(response);
 				var msg = 'File sucessfully uploaded.';
+				console.log(response);
 				$('.alert-success > p').html(msg);
 				$('.alert-success').show();
 				$('.alert-success').delay(5000).slideUp(function(){
