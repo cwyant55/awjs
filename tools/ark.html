@@ -1,4 +1,4 @@
-<div ng-controller="userController">
+<div ng-controller="arkController">
 	<h2>Ark Request</h2>
 		
 	<div ng-init="getRecords('repositories')">
@@ -7,7 +7,7 @@
 	<div class="form-group">
     <label for="institution">Select your institution:</label>
 	<select id="institution" ng-model="temp.inst">
-	  <option ng-repeat="user in users">{{user.instcode}}</option>	 
+	  <option ng-repeat="record in records.list">{{record.instcode}}</option>	 
 	</select>
 	</div>
 	
