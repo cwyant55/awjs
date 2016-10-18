@@ -1,7 +1,6 @@
 <?php
 include 'DB.php';
 $db = new DB();
-#$tblName = 'users';
 $tblName = $_REQUEST['table'];
 if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
     $type = $_REQUEST['type'];	
@@ -17,7 +16,7 @@ if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
             }
             echo json_encode($data);
             break;
-        case "add":
+        case "adduser":
             if(!empty($_POST['data'])){
                 $userData = array(
                     'name' => $_POST['data']['name'],
@@ -27,7 +26,7 @@ if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
                 if($insert){
                     $data['data'] = $insert;
                     $data['status'] = 'OK';
-                    $data['msg'] = 'Data has been added successfully.';
+                    $data['msg'] = 'User data has been added successfully.';
                 }else{
                     $data['status'] = 'ERR';
                     $data['msg'] = 'Some problem occurred, please try again.';
@@ -63,7 +62,7 @@ if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
             }
             echo json_encode($data);
             break;
-        case "edit":
+        case "edituser":
             if(!empty($_POST['data'])){
                 $userData = array(
                     'name' => $_POST['data']['name'],

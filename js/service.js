@@ -42,7 +42,6 @@ angular.module("awApp").factory('dbService', function($http) {
             });
     }, // deleteRecord
 	
-
 		saveRecord : function(tempData,type,tableName,index) {
 		var data = $.param({
         'data':tempData,
@@ -56,7 +55,7 @@ angular.module("awApp").factory('dbService', function($http) {
         };
         $http.post("/php/action.php", data, config).success(function(response){
             if(response.status == 'OK'){
-                if(type == 'edit'){
+                if(type == 'edituser'){
                     records.list[index].id = tempData.id;
                     records.list[index].name = tempData.name;
                     records.list[index].email = tempData.email;

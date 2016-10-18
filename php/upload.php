@@ -5,7 +5,6 @@ $storeFolder = '/var/www/public/awjs/upload';
 
 if (!empty($_FILES)) { 
     $tempFile = $_FILES['file']['tmp_name'];
-#    $targetPath = dirname( __FILE__ ) . $ds. $storeFolder . $ds;  //4
     $targetPath = $storeFolder . $ds;
     $targetFile =  $targetPath. $_FILES['file']['name'];
     move_uploaded_file($tempFile,$targetFile);
@@ -14,8 +13,11 @@ if (!empty($_FILES)) {
 // insert into database
 $db = new DB();
 $tblName = 'docs';
+$date = $date = date('Y-m-d H:i:s');
+				// arkid must exist in docs table before uploading file
                 $arkData = array(
-                    'docname' => $_FILES['file']['name']
+                    'docname' => $_FILES['file']['name'],
+					'created' => $date
                 );
                 $condition = array('arkid' => $_REQUEST['arkid']);
                 $update = $db->update($tblName,$arkData,$condition);

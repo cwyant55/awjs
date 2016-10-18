@@ -28,7 +28,8 @@ angular.module("awApp").controller("userController", function($scope,$http,dbSer
 	}; // saveUser
         
     $scope.addUser = function(){
-        $scope.saveUser('add');
+		// parameter references switch type in action.php
+        $scope.saveUser('adduser');
     }; // addUser
     
     $scope.editUser = function(user){
@@ -43,7 +44,7 @@ angular.module("awApp").controller("userController", function($scope,$http,dbSer
     
     $scope.updateUser = function(index){
 		// include in function call in html; passes index to saveUser()
-        $scope.saveUser('edit',index);
+        $scope.saveUser('edituser',index);
     }; //
    
 }); // userController
@@ -71,7 +72,7 @@ angular.module("awApp").controller("formController", function($scope,$http){
 		form_data.append('arkid', arkid);
 		$.ajax({
                 url: '/php/upload.php', // point to server-side PHP script 
-                dataType: 'text',  // what to expect back from the PHP script, if anything
+                dataType: 'text',  // what to expect back from the PHP script
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -80,11 +81,7 @@ angular.module("awApp").controller("formController", function($scope,$http){
                 success: function(response) {
 				var msg = 'File sucessfully uploaded.';
 				console.log(response);
-				$('.alert-success > p').html(msg);
-				$('.alert-success').show();
-				$('.alert-success').delay(5000).slideUp(function(){
-				$('.alert-success > p').html('');
-					});
+				messageSuccess(msg);
 				}		
 		});
 	};
@@ -93,18 +90,12 @@ angular.module("awApp").controller("formController", function($scope,$http){
 //
 // ARK controller
 //
-angular.module("awApp").controller("arkController", function($scope,$http,dbService,msgService){
+angular.module("awApp").controller("arkController", function($scope,$http,dbService){
 	
 	// get records
 	$scope.getRecords = function(tableName) {
 		$scope.records = dbService.getRecords(tableName);		
 	};
-	
-	// success message
-	$scope.messageSuccess = msgService.messageSuccess;
-	
-	// error message
-	$scope.messageSuccess = msgService.messageError;
 	
 // function to generate ARK request
     $scope.arkRequest = function(){
@@ -120,9 +111,9 @@ angular.module("awApp").controller("arkController", function($scope,$http,dbServ
         };
         $http.post("/php/action.php", data, config).success(function(response){
             if(response.status == 'OK'){
-                $scope.messageSuccess(response.msg);
+                messageSuccess(response.msg);
             }else{
-                $scope.messageError(response.msg);
+                messageError(response.msg);
             }
         });
     };
@@ -139,3 +130,14 @@ angular.module("awApp").controller("arkController", function($scope,$http,dbServ
     };
 
 }); // ARK controller
+
+//
+// index controller (?)
+//
+angular.module("awApp").controller("indexController", function($scope,$http,dbService){
+	
+	$scope.getRecords = function() {
+		$scope.records = dbService.getRecords('docs');
+	}; // getRecords
+	
+}); // indexController
