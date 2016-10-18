@@ -20,47 +20,62 @@ angular.module("awApp").factory('dbService', function($http) {
 		return records;
     }, // getRecords
 	
-	getRecords : function(tableName) {
-        $http.get('/php/action.php', {
-            params:{
-                'type':'view',
+		deleteRecord : function(record,tableName) {
+		var data = $.param({
+                'id': record.id,
+                'type':'delete',
 				'table':tableName
+            });
+            var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }    
+            };
+            $http.post("/php/action.php",data,config).success(function(response){
+                if(response.status == 'OK'){
+                    var index = records.list.indexOf(record);
+                    records.list.splice(index,1);
+                    messageSuccess(response.msg);
+                }else{
+                    messageError(response.msg);
+                }
+            });
+    }, // deleteRecord
+	
+
+		saveRecord : function(tempData,type,tableName,index) {
+		var data = $.param({
+        'data':tempData,
+        'type':type,
+		'table':tableName
+        });
+        var config = {
+            headers : {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
             }
-        }).success(function(response){
-			records.list = response.records;
-			console.log(records.list);
+        };
+        $http.post("/php/action.php", data, config).success(function(response){
+            if(response.status == 'OK'){
+                if(type == 'edit'){
+                    records.list[index].id = tempData.id;
+                    records.list[index].name = tempData.name;
+                    records.list[index].email = tempData.email;
+                }else{
+                    records.list.push({
+                        id:response.data.id,
+                        name:response.data.name,
+                        email:response.data.email,
+                    });
+                    
+                }
+                messageSuccess(response.msg);
+            }else{
+                messageError(response.msg);
+            }
         });
-		return records;
-    }, // 
+	} // saveRecord
 	
-	
-	
-		} // return
-});
-
-
-angular.module("awApp").factory('msgService', function() {
-	var msg = {};
-	
-	return {
-		
-    messageSuccess : function(msg){
-        $('.alert-success > p').html(msg);
-        $('.alert-success').show();
-        $('.alert-success').delay(5000).slideUp(function(){
-        $('.alert-success > p').html('');
-        });
-    }, // messageSuccess
-	
-	messageError : function(msg){
-        $('.alert-danger > p').html(msg);
-        $('.alert-danger').show();
-        $('.alert-danger').delay(5000).slideUp(function(){
-            $('.alert-danger > p').html('');
-        });
-    }
 	
 	} // return
-	
-});
-    
+		
+}); // dbService

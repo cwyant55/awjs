@@ -27,7 +27,7 @@ if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
                 if($insert){
                     $data['data'] = $insert;
                     $data['status'] = 'OK';
-                    $data['msg'] = 'User data has been added successfully.';
+                    $data['msg'] = 'Data has been added successfully.';
                 }else{
                     $data['status'] = 'ERR';
                     $data['msg'] = 'Some problem occurred, please try again.';
@@ -90,7 +90,7 @@ if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
                 $delete = $db->delete($tblName,$condition);
                 if($delete){
                     $data['status'] = 'OK';
-                    $data['msg'] = 'User data has been deleted successfully.';
+                    $data['msg'] = 'Record has been deleted successfully.';
                 }else{
                     $data['status'] = 'ERR';
                     $data['msg'] = 'Some problem occurred, please try again.';

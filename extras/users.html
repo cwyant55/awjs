@@ -18,7 +18,7 @@
 	<div id="main">
 	<!-- stuff goes here -->
 	
-	<div class="container" ng-controller="userController" ng-init="getRecords()">
+	<div class="container" ng-controller="userController" ng-init="getRecords('users')">
     <div class="row">
     	<h2>Users</h2>
         <div class="panel panel-default users-content">
@@ -37,7 +37,7 @@
                     </div>	
                     <a href="javascript:void(0);" class="btn btn-warning" onClick="$('.formData').slideUp();">Cancel</a>
                     <a href="javascript:void(0);" class="btn btn-success" ng-hide="tempUserData.id" ng-click="addUser()">Add User</a>
-                    <a href="javascript:void(0);" class="btn btn-success" ng-hide="!tempUserData.id" ng-click="updateUser(index)">Update User</a>
+                    <a href="javascript:void(0);" class="btn btn-success" ng-hide="!tempUserData.id" ng-click="updateUser()">Update User</a>
                 </form>
             </div>
             <table class="table table-striped">
@@ -49,7 +49,7 @@
                     <th width="14%">Created</th>
                     <th width="10%"></th>
                 </tr>
-                <tr ng-repeat="user in users.list | orderBy:'-created'">
+                <tr ng-repeat="user in users | orderBy:'-created'">
                     <td>{{$index + 1}}</td>
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
