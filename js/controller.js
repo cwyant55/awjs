@@ -136,8 +136,8 @@ angular.module("awApp").controller("arkController", function($scope,$http,dbServ
 //
 angular.module("awApp").controller("indexController", function($scope,$http,dbService){
 	
-	$scope.getRecords = function() {
-		$scope.records = dbService.getRecords('docs');
+	$scope.getRecords = function(tableName) {
+		$scope.records = dbService.getRecords(tableName);
 	}; // getRecords
 	
 }); // indexController

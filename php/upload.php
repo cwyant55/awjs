@@ -13,7 +13,7 @@ if (!empty($_FILES)) {
 // insert into database
 $db = new DB();
 $tblName = 'docs';
-$date = $date = date('Y-m-d H:i:s');
+$date = date('Y-m-d H:i:s');
 				// arkid must exist in docs table before uploading file
                 $arkData = array(
                     'docname' => $_FILES['file']['name'],
@@ -36,7 +36,7 @@ $data = file_get_contents($targetFile);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_POST, TRUE);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/csv'));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: text/xml'));
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
 $response = curl_exec($ch);
