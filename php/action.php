@@ -2,13 +2,14 @@
 include 'DB.php';
 $db = new DB();
 $tblName = $_REQUEST['table'];
+$conditions = array('where' => array('inst' => 'LIKE "bsu"'));
 if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
     $type = $_REQUEST['type'];	
     switch($type){
         case "view":
             $records = $db->getRows($tblName);
             if($records){
-                $data['records'] = $db->getRows($tblName);
+                $data['records'] = $db->getRows($tblName,$conditions);
                 $data['status'] = 'OK';
             }else{
                 $data['records'] = array();

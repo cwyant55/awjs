@@ -30,7 +30,7 @@
 		<p>Track newly available and acquired content of note from across the West.</p>
 		</div>
 		<div class="panel-body">
-		<div ng-init="getRecords('docs')">
+		<div ng-init="getRecords()">
 		<div ng-repeat="record in records.list | orderBy:'-lastmodified'">
 		<b>{{record.docname}}</b> - Institution: {{record.inst}}<br/>
 		ARK: <a href="http://awjs.local/upload/{{record.docname}}">{{record.arkid}}</a><br/>

@@ -128,6 +128,19 @@ angular.module("awApp").controller("arkController", function($scope,$http,dbServ
 			$('#docview').show();
         });
     };
+	
+	// view doc with xsl
+	$scope.viewXML = function() {
+		var file = $scope.temp.ark.docname;
+        $http.get('/php/xml.php', {
+            params:{
+                'file': file
+				}
+        }).success(function(response){
+			records.list = response.records;
+			console.log(records.list);
+        });
+	};
 
 }); // ARK controller
 

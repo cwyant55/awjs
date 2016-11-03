@@ -42,7 +42,8 @@ class DB {
             $i = 0;
             foreach($conditions['where'] as $key => $value){
                 $pre = ($i > 0)?' AND ':'';
-                $sql .= $pre.$key." = '".$value."'";
+//                $sql .= $pre.$key." = '".$value."'";
+                $sql .= $pre.$key." ".$value;
                 $i++;
             }
         }
