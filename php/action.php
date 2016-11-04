@@ -2,20 +2,43 @@
 include 'DB.php';
 $db = new DB();
 $tblName = $_REQUEST['table'];
-$conditions = array('where' => array('inst' => 'LIKE "bsu"'));
+
+//if (isset($_REQUEST['conditions'])) {
+  //$cond = json_decode($_REQUEST['conditions'], true);
+  //$conditions = array('where' => array($cond['where'] => $cond['value']));
+
+//} // if
+
+//$txt = var_dump($conditions);
+//$myfile = file_put_contents('logs.txt', $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
+
+// below working example
+$conditions = array('where' => array('id' => '40'));
+
 if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
-    $type = $_REQUEST['type'];	
+    $type = $_REQUEST['type'];
     switch($type){
         case "view":
             $records = $db->getRows($tblName);
             if($records){
-                $data['records'] = $db->getRows($tblName,$conditions);
+                $data['records'] = $db->getRows($tblName);
                 $data['status'] = 'OK';
             }else{
                 $data['records'] = array();
                 $data['status'] = 'ERR';
             }
             echo json_encode($data);
+            break;
+          case "query":
+                $records = $db->getRows($tblName,$conditions);
+                if($records){
+                    $data['records'] = $db->getRows($tblName,$conditions);
+                    $data['status'] = 'OK';
+                }else{
+                    $data['records'] = array();
+                    $data['status'] = 'ERR';
+                }
+                echo json_encode($data);
             break;
         case "adduser":
             if(!empty($_POST['data'])){
@@ -43,7 +66,7 @@ if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
 				// generate random ARK ID
 				$rando = rand(4000, 5000);
 				$arkid = '80444/xv' . $rando;
-						
+
                 $arkData = array(
                     'inst' => $_POST['data']['inst'],
 					'arkid' => $arkid

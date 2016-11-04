@@ -17,23 +17,23 @@
 	<div ng-include="'/templates/header.html'"></div>
 	<div id="main">
 	<!-- stuff goes here -->
-	
+
 	<div class="container" ng-controller="indexController">
 		<div class="jumbotron">
-		<h1>AW.js</h1> 
-		<p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p> 
+		<h1>AW.js</h1>
+		<p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
   </div>
-  
+
   <div class="row">
 	<div class="col-md-6">
 	Repos listed here
 	</div>
-	
+
 	<div class="col-md-6">
 	Subject headings here
 	</div>
   </div>
-	
+
 	<div class="row">
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -41,13 +41,9 @@
 		<p>Track newly available and acquired content of note from across the West.</p>
 		</div>
 		<div class="panel-body">
-<<<<<<< HEAD
-		<div ng-init="getRecords()">
-		<div ng-repeat="record in records.list | orderBy:'-lastmodified'">
-=======
+
 		<div ng-init="getRecords('docs')">
-		<div ng-repeat="record in records.list | limitTo: 4 | orderBy:'-lastmodified'">
->>>>>>> 706428cb7033cc152f105f1709a78be751015b88
+		<div ng-repeat="record in records.list | orderBy:'-lastmodified'">
 		<b>{{record.docname}}</b> - Institution: {{record.inst}}<br/>
 		ARK: <a href="http://awjs.local/upload/{{record.docname}}">{{record.arkid}}</a><br/>
 		<p><i>Modified date: {{record.lastmodified}}</i></p>
@@ -56,8 +52,8 @@
 	</div>
 	</div> <!-- panel -->
 	</div> <!-- row -->
-	
-	
+
+
 	</div> <!-- main -->
 </body>
 </html>

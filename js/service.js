@@ -5,13 +5,14 @@
 // create, retrieve, update, delete records from database
 angular.module("awApp").factory('dbService', function($http) {
 	var records = {};
-	
+
 	return {
-		getRecords : function(tableName) {
+		// function to return all records from table with no conditions
+		getRecords : function(table) {
         $http.get('/php/action.php', {
             params:{
                 'type':'view',
-				'table':tableName
+								'table':table
             }
         }).success(function(response){
 			records.list = response.records;
@@ -19,7 +20,23 @@ angular.module("awApp").factory('dbService', function($http) {
         });
 		return records;
     }, // getRecords
-	
+
+		// function to return all records with query paramters
+		queryRecords : function(table) {
+				//var cond = JSON.stringify(conditions);
+				$http.get('/php/action.php', {
+						params:{
+								'type':'query',
+								'table':table
+								//'conditions':cond
+						}
+				}).success(function(response){
+			records.list = response.records;
+			console.log(records.list);
+				});
+		return records;
+	}, // queryRecords
+
 		deleteRecord : function(record,tableName) {
 		var data = $.param({
                 'id': record.id,
@@ -29,7 +46,7 @@ angular.module("awApp").factory('dbService', function($http) {
             var config = {
                 headers : {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-                }    
+                }
             };
             $http.post("/php/action.php",data,config).success(function(response){
                 if(response.status == 'OK'){
@@ -41,7 +58,7 @@ angular.module("awApp").factory('dbService', function($http) {
                 }
             });
     }, // deleteRecord
-	
+
 		saveRecord : function(tempData,type,tableName,index) {
 		var data = $.param({
         'data':tempData,
@@ -65,7 +82,7 @@ angular.module("awApp").factory('dbService', function($http) {
                         name:response.data.name,
                         email:response.data.email,
                     });
-                    
+
                 }
                 messageSuccess(response.msg);
             }else{
@@ -73,8 +90,8 @@ angular.module("awApp").factory('dbService', function($http) {
             }
         });
 	} // saveRecord
-	
-	
+
+
 	} // return
-		
+
 }); // dbService

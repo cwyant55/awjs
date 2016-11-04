@@ -11,7 +11,7 @@ class DB {
     private $dbPassword = 'root';
     private $dbName     = 'awjs';
     public $db;
-    
+
     /*
      * Connect to the database and return db connecction
      */
@@ -27,7 +27,7 @@ class DB {
             }
         }
     }
-    
+
     /*
      * Returns rows from the database based on the conditions
      * @param string name of the table
@@ -42,25 +42,28 @@ class DB {
             $i = 0;
             foreach($conditions['where'] as $key => $value){
                 $pre = ($i > 0)?' AND ':'';
-//                $sql .= $pre.$key." = '".$value."'";
-                $sql .= $pre.$key." ".$value;
+                $sql .= $pre.$key." = '".$value."'";
+//                $sql .= $pre.$key." ".$value;
                 $i++;
             }
         }
-        
+
         if(array_key_exists("order_by",$conditions)){
-            $sql .= ' ORDER BY '.$conditions['order_by']; 
+            $sql .= ' ORDER BY '.$conditions['order_by'];
         }
-        
+
         if(array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
-            $sql .= ' LIMIT '.$conditions['start'].','.$conditions['limit']; 
+            $sql .= ' LIMIT '.$conditions['start'].','.$conditions['limit'];
         }elseif(!array_key_exists("start",$conditions) && array_key_exists("limit",$conditions)){
-            $sql .= ' LIMIT '.$conditions['limit']; 
+            $sql .= ' LIMIT '.$conditions['limit'];
         }
-        
+
+        // Debug: log query to file
+        $myfile = file_put_contents('logs.txt', $sql.PHP_EOL , FILE_APPEND | LOCK_EX);
+
         $query = $this->db->prepare($sql);
         $query->execute();
-        
+
         if(array_key_exists("return_type",$conditions) && $conditions['return_type'] != 'all'){
             switch($conditions['return_type']){
                 case 'count':
@@ -79,7 +82,7 @@ class DB {
         }
         return !empty($data)?$data:false;
     }
-    
+
     /*
      * Insert data into the database
      * @param string name of the table
@@ -116,7 +119,7 @@ class DB {
             return false;
         }
     }
-    
+
     /*
      * Update data into the database
      * @param string name of the table
@@ -154,7 +157,7 @@ class DB {
             return false;
         }
     }
-    
+
     /*
      * Delete data from the database
      * @param string name of the table
