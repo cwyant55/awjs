@@ -1,19 +1,28 @@
 <?php
 include 'DB.php';
 $db = new DB();
-$tblName = $_REQUEST['table'];
 
-//if (isset($_REQUEST['conditions'])) {
-  //$cond = json_decode($_REQUEST['conditions'], true);
-  //$conditions = array('where' => array($cond['where'] => $cond['value']));
+// for default getRecords
+if (isset($_REQUEST['table'])) {
+    $tblName = $_REQUEST['table'];
 
-//} // if
+}
 
-//$txt = var_dump($conditions);
-//$myfile = file_put_contents('logs.txt', $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
+// for new queryRecords
+if (isset($_REQUEST['conditions'])) {
+  $cond = json_decode($_REQUEST['conditions'], true);
+  $conditions = array('where' => array($cond['where'] => $cond['value']));
+  $tblName = $cond['table'];
+
+  // debug: log conditions variable to file
+  $txt = 'From action.php - ' . $_REQUEST['conditions'];
+  $myfile = file_put_contents('logs.txt', $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
+} // if
+
+
 
 // below working example
-$conditions = array('where' => array('id' => '40'));
+//$conditions = array('where' => array('id' => '40'));
 
 if(isset($_REQUEST['type']) && !empty($_REQUEST['type'])){
     $type = $_REQUEST['type'];

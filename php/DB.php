@@ -42,8 +42,9 @@ class DB {
             $i = 0;
             foreach($conditions['where'] as $key => $value){
                 $pre = ($i > 0)?' AND ':'';
-                $sql .= $pre.$key." = '".$value."'";
-//                $sql .= $pre.$key." ".$value;
+//               this is the original line below
+//                $sql .= $pre.$key." = '".$value."'";
+                $sql .= $pre.$key." ".$value;
                 $i++;
             }
         }
@@ -59,7 +60,8 @@ class DB {
         }
 
         // Debug: log query to file
-        $myfile = file_put_contents('logs.txt', $sql.PHP_EOL , FILE_APPEND | LOCK_EX);
+        $txt = 'From DB.php - ' . $sql;
+        $myfile = file_put_contents('logs.txt', $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
 
         $query = $this->db->prepare($sql);
         $query->execute();

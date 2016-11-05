@@ -149,9 +149,10 @@ angular.module("awApp").controller("arkController", function($scope,$http,dbServ
 //
 angular.module("awApp").controller("indexController", function($scope,$http,dbService){
 
-	$scope.getRecords = function(table) {
-      var conditions = {'where': 'id', 'value': '40'};
-  		$scope.records = dbService.queryRecords(table,conditions);
+	$scope.getRecords = function() {
+//      var conditions = {'where': 'inst', 'value': 'LIKE "cwu"'};
+      var conditions = {'table': 'docs', 'where': 'inst', 'value': 'LIKE "cwu"'};
+  		$scope.records = dbService.queryRecords(conditions);
 	}; // getRecords
 
 }); // indexController
