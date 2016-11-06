@@ -93,8 +93,8 @@ angular.module("awApp").controller("formController", function($scope,$http){
 angular.module("awApp").controller("arkController", function($scope,$http,dbService){
 
 	// get records
-	$scope.getRecords = function(tableName) {
-		$scope.records = dbService.getRecords(tableName);
+	$scope.getRecords = function(table) {
+		$scope.records = dbService.getRecords(table);
 	};
 
 // function to generate ARK request
@@ -149,10 +149,13 @@ angular.module("awApp").controller("arkController", function($scope,$http,dbServ
 //
 angular.module("awApp").controller("indexController", function($scope,$http,dbService){
 
-	$scope.getRecords = function() {
-//      var conditions = {'where': 'inst', 'value': 'LIKE "cwu"'};
-      var conditions = {'table': 'docs', 'where': 'inst', 'value': 'LIKE "cwu"'};
+	$scope.getNewDocs = function() {
+      var conditions = {'table': 'docs', 'where': 'created', 'value': 'IS NOT NULL'};
   		$scope.records = dbService.queryRecords(conditions);
-	}; // getRecords
+	}; // getNewDocs
+
+  $scope.getRecords = function(table) {
+      $scope.records = dbService.getRecords(table);
+  }; // getNewDocs
 
 }); // indexController

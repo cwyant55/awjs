@@ -42,11 +42,11 @@
 		</div>
 		<div class="panel-body">
 
-		<div ng-init="getRecords()">
-		<div ng-repeat="record in records.list | orderBy:'-lastmodified'">
+		<div ng-init="getNewDocs()">
+		<div ng-repeat="record in records.list | orderBy:'-created'">
 		<b>{{record.docname}}</b> - Institution: {{record.inst}}<br/>
 		ARK: <a href="http://awjs.local/upload/{{record.docname}}">{{record.arkid}}</a><br/>
-		<p><i>Modified date: {{record.lastmodified}}</i></p>
+		<p><i>Created: {{record.created}}</i></p>
 		</div>
 		</div>
 	</div>

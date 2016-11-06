@@ -11,8 +11,9 @@ if (isset($_REQUEST['table'])) {
 // for new queryRecords
 if (isset($_REQUEST['conditions'])) {
   $cond = json_decode($_REQUEST['conditions'], true);
-  $conditions = array('where' => array($cond['where'] => $cond['value']));
+  // conditions variable should always include table
   $tblName = $cond['table'];
+  $conditions = array('where' => array($cond['where'] => $cond['value']));
 
   // debug: log conditions variable to file
   $txt = 'From action.php - ' . $_REQUEST['conditions'];
