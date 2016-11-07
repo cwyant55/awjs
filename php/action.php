@@ -5,14 +5,11 @@ $db = new DB();
 // for default getRecords
 if (isset($_REQUEST['table'])) {
     $tblName = $_REQUEST['table'];
-
 }
 
 // for new queryRecords
 if (isset($_REQUEST['conditions'])) {
   $cond = json_decode($_REQUEST['conditions'], true);
-  // conditions variable should always include table
-  $tblName = $cond['table'];
   $conditions = array('where' => array($cond['where'] => $cond['value']));
 
   // debug: log conditions variable to file

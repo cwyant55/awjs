@@ -22,11 +22,12 @@ angular.module("awApp").factory('dbService', function($http) {
     }, // getRecords
 
 		// function to return all records with query paramters
-		queryRecords : function(conditions) {
+		queryRecords : function(table,conditions) {
 				var cond = JSON.stringify(conditions);
 				$http.get('/php/action.php', {
 						params:{
 								'type':'query',
+								'table': table,
 								'conditions':cond
 						}
 				}).success(function(response){

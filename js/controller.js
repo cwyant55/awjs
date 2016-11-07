@@ -150,12 +150,14 @@ angular.module("awApp").controller("arkController", function($scope,$http,dbServ
 angular.module("awApp").controller("indexController", function($scope,$http,dbService){
 
 	$scope.getNewDocs = function() {
-      var conditions = {'table': 'docs', 'where': 'created', 'value': 'IS NOT NULL'};
-  		$scope.records = dbService.queryRecords(conditions);
+      var table = 'docs';
+      var conditions = {'where': 'created', 'value': 'IS NOT NULL'};
+  		$scope.records = dbService.queryRecords(table,conditions);
 	}; // getNewDocs
 
   $scope.getRecords = function(table) {
       $scope.records = dbService.getRecords(table);
   }; // getNewDocs
+
 
 }); // indexController
