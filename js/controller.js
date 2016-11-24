@@ -54,7 +54,7 @@ angular.module("awApp").controller("searchController", function($scope,$http){
     $scope.results = [];
     // function to get search results
     $scope.getResults = function(){
-		var query = 'http://awjs.local/solr/cwils/select?q=' + $scope.keywords + '&wt=json';
+		var query = 'http://awjs.local/solr/awjs/select?q=' + $scope.keywords + '&wt=json';
         $http.get(query).success(function(response){
                 $scope.results = response.response.docs;
 				console.log($scope.results);
@@ -90,7 +90,7 @@ angular.module("awApp").controller("formController", function($scope,$http){
 //
 // ARK controller
 //
-angular.module("awApp").controller("arkController", function($scope,$http,dbService){
+angular.module("awApp").controller("arkController", function($scope,$http,dbService,$location){
 
 	// get records
 	$scope.getRecords = function(table) {
@@ -118,8 +118,7 @@ angular.module("awApp").controller("arkController", function($scope,$http,dbServ
         });
     };
 
-
-	// function to view document
+	// function to view document on tools page
     $scope.viewDoc = function(){
 		console.log($scope.temp);
 		var docpath = '/upload/' + $scope.temp.ark.docname;
@@ -131,16 +130,34 @@ angular.module("awApp").controller("arkController", function($scope,$http,dbServ
 
 	// view doc with xsl
 	$scope.viewXML = function() {
-		var file = $scope.temp.ark.docname;
+	   var docpath = '/upload/' + $scope.temp.ark.docname;
         $http.get('/php/xml.php', {
             params:{
-                'file': file
+                'file': docpath
 				}
         }).success(function(response){
-			records.list = response.records;
-			console.log(records.list);
+        $('#docview > pre').html(response);
+    		$('#docview').show();
         });
 	};
+
+  // function to view document in search results
+    $scope.viewResult = function(){
+      var ark = "= " + "'" + $location.search()['ark'] + "'";
+          var table = 'docs';
+          var conditions = {'where': 'arkid', 'value': ark};
+          $scope.records = dbService.queryRecords(table,conditions);
+          
+      }; // viewResult
+
+
+		//var docpath = '/upload/' + $scope.temp.ark.docname;
+    //    $http.get(docpath).success(function(response){
+	//		$('#docview > pre').html(response);
+		//	$('#docview').show();
+    //    });
+    //};
+
 
 }); // ARK controller
 

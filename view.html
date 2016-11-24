@@ -19,24 +19,14 @@
 	<div id="main">
 	<!-- stuff goes here -->
 
-	<div class="container" ng-controller="indexController" ng-init="getRecords('repositories')">
-    <div class="row">
-    	<h2>Contact</h2>
-        <div class="panel panel-default users-content">
-            <div class="alert alert-danger none"><p></p></div>
-            <div class="alert alert-success none"><p></p></div>
-            <table class="table table-striped">
-                <tr>
-                    <th width="25%">Name</th>
-                    <th width="75%">Collection Info</th>
-                </tr>
-                <tr ng-repeat="record in records.list">
-                    <td><a href="{{record.url}}">{{record.name}}</a></td>
-                    <td>{{record.collectioninfo}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
+	<div class="container" ng-controller="arkController" ng-init="viewResult()">
+		<div ng-repeat="record in records.list">
+		Displaying document: <b>{{record.docname}}</b>
+
+
+
+
+  <div id="docview" class="none"><pre><!--retrieved document goes here --></pre></div>
 </div>
 
 	</div> <!-- main -->
