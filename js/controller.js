@@ -146,18 +146,8 @@ angular.module("awApp").controller("arkController", function($scope,$http,dbServ
       var ark = "= " + "'" + $location.search()['ark'] + "'";
           var table = 'docs';
           var conditions = {'where': 'arkid', 'value': ark};
-          $scope.records = dbService.queryRecords(table,conditions);
-          
+          $scope.records = dbService.getXML(table,conditions);
       }; // viewResult
-
-
-		//var docpath = '/upload/' + $scope.temp.ark.docname;
-    //    $http.get(docpath).success(function(response){
-	//		$('#docview > pre').html(response);
-		//	$('#docview').show();
-    //    });
-    //};
-
 
 }); // ARK controller
 

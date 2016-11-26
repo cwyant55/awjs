@@ -21,7 +21,7 @@ angular.module("awApp").factory('dbService', function($http) {
 		return records;
     }, // getRecords
 
-		// function to return all records with query paramters
+		// function to return all records with query parameters
 		queryRecords : function(table,conditions) {
 				var cond = JSON.stringify(conditions);
 				$http.get('/php/action.php', {
@@ -36,6 +36,28 @@ angular.module("awApp").factory('dbService', function($http) {
 				});
 		return records;
 	}, // queryRecords
+
+	// function to return XML of document by ARK ID on View page
+	getXML : function(table,conditions) {
+			var cond = JSON.stringify(conditions);
+			$http.get('/php/action.php', {
+					params:{
+							'type':'query',
+							'table': table,
+							'conditions':cond
+					}
+			}).success(function(response){
+				// there should only be one result
+		records.docname = response.records[0].docname;
+		console.log(records.docname);
+		var docpath = '/upload/' + records.docname;
+		$http.get(docpath).success(function(response){
+			$('#docview > pre').html(response);
+			//$('#docview').show();
+	});
+			});
+	return records;
+}, // queryRecords
 
 		deleteRecord : function(record,tableName) {
 		var data = $.param({

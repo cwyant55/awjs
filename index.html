@@ -46,7 +46,7 @@
 		<div ng-init="getNewDocs()">
 		<div ng-repeat="record in records.list | orderBy:'-created'">
 		<b>{{record.docname}}</b> - Institution: {{record.inst}}<br/>
-		ARK: <a href="http://awjs.local/upload/{{record.docname}}">{{record.arkid}}</a><br/>
+		ARK: <a target="_self" href="/view.html?ark={{record.arkid}}">{{record.arkid}}</a><br/>
 		<p><i>Created: {{record.created}}</i></p>
 		</div>
 		</div>
